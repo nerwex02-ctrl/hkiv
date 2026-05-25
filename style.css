@@ -3,7 +3,7 @@ body{
 margin:0;
 padding:15px;
 
-background:#09090f;
+background:#07070b;
 
 font-family:Arial;
 
@@ -27,14 +27,17 @@ background:
 radial-gradient(
 circle at top,
 #3b0764,
-#09090f 60%
+#07070b 60%
 );
 
 z-index:-1;
 
 }
 
-.top{
+.top,
+.enemy,
+.inventory,
+.equipment{
 
 background:
 rgba(20,20,30,0.95);
@@ -43,10 +46,12 @@ padding:18px;
 
 border-radius:25px;
 
+margin-bottom:18px;
+
 border:1px solid #7c3aed;
 
 box-shadow:
-0 0 25px rgba(124,58,237,0.5);
+0 0 20px rgba(124,58,237,0.4);
 
 }
 
@@ -54,16 +59,16 @@ box-shadow:
 
 display:flex;
 
-align-items:center;
-
 gap:15px;
+
+align-items:center;
 
 }
 
 .profile img{
 
-width:75px;
-height:75px;
+width:80px;
+height:80px;
 
 border-radius:50%;
 
@@ -92,35 +97,40 @@ font-weight:bold;
 
 }
 
-.enemy{
+.equipGrid{
 
-margin-top:20px;
+display:grid;
 
-background:
-rgba(20,20,30,0.95);
+grid-template-columns:
+1fr 1fr;
 
-padding:20px;
+gap:12px;
 
-border-radius:25px;
-
-border:1px solid red;
-
-box-shadow:
-0 0 20px rgba(255,0,0,0.3);
-
-animation:pulse 2s infinite;
+margin-top:15px;
 
 }
 
-.enemyName{
+.slot{
 
-font-size:28px;
+background:#111;
+
+padding:15px;
+
+border-radius:18px;
+
+text-align:center;
 
 font-weight:bold;
 
-margin-bottom:15px;
+min-height:70px;
+
+}
+
+.enemy{
 
 text-align:center;
+
+animation:pulse 2s infinite;
 
 }
 
@@ -133,6 +143,8 @@ background:#222;
 border-radius:20px;
 
 overflow:hidden;
+
+margin-top:10px;
 
 }
 
@@ -159,7 +171,7 @@ display:flex;
 
 gap:10px;
 
-margin-top:15px;
+margin-bottom:12px;
 
 }
 
@@ -182,7 +194,7 @@ linear-gradient(
 
 color:white;
 
-font-size:17px;
+font-size:16px;
 
 font-weight:bold;
 
@@ -201,22 +213,18 @@ transform:scale(0.95);
 
 position:fixed;
 
-bottom:0;
 left:0;
+bottom:0;
 
 width:100%;
 
 height:75%;
 
-background:#111;
+overflow-y:auto;
 
 border-radius:25px 25px 0 0;
 
-padding:15px;
-
-overflow-y:auto;
-
-animation:slide 0.3s;
+z-index:999;
 
 }
 
@@ -234,8 +242,6 @@ justify-content:space-between;
 
 align-items:center;
 
-margin-bottom:15px;
-
 }
 
 #drops{
@@ -252,13 +258,11 @@ padding-bottom:120px;
 
 .item{
 
+background:#111;
+
 padding:15px;
 
 border-radius:18px;
-
-background:#1a1a1a;
-
-font-weight:bold;
 
 animation:drop 0.2s ease;
 
@@ -282,56 +286,6 @@ font-size:13px;
 
 }
 
-.common{
-
-border:2px solid #555;
-
-}
-
-.rare{
-
-border:2px solid deepskyblue;
-
-box-shadow:
-0 0 12px deepskyblue;
-
-color:deepskyblue;
-
-}
-
-.epic{
-
-border:2px solid violet;
-
-box-shadow:
-0 0 16px violet;
-
-color:violet;
-
-}
-
-.legendary{
-
-border:2px solid gold;
-
-box-shadow:
-0 0 25px gold;
-
-color:gold;
-
-}
-
-.mythic{
-
-border:2px solid red;
-
-box-shadow:
-0 0 30px red;
-
-color:red;
-
-}
-
 @keyframes pulse{
 
 0%{
@@ -339,7 +293,7 @@ transform:scale(1);
 }
 
 50%{
-transform:scale(1.02);
+transform:scale(1.01);
 }
 
 100%{
@@ -362,24 +316,6 @@ translateY(-15px);
 to{
 
 opacity:1;
-
-transform:
-translateY(0);
-
-}
-
-}
-
-@keyframes slide{
-
-from{
-
-transform:
-translateY(100%);
-
-}
-
-to{
 
 transform:
 translateY(0);
