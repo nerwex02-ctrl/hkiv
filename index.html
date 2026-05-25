@@ -31,19 +31,20 @@ href="style.css">
 
 <h2 id="name">Игрок</h2>
 
-<p>
-⚔ Уровень:
+<p>⚔ Уровень:
 <span id="lvl">1</span>
 </p>
 
-<p>
-❤️ HP:
+<p>❤️ HP:
 <span id="hp">100</span>
 </p>
 
-<p>
-✨ XP:
+<p>✨ XP:
 <span id="xp">0</span>/100
+</p>
+
+<p>🛡 Броня:
+<span id="armor">0</span>
 </p>
 
 </div>
@@ -67,16 +68,20 @@ href="style.css">
 <div class="enemy">
 
 <div class="enemyName">
+
 👹
 <span id="enemy">
 Слизень
 </span>
+
 </div>
 
 <div class="hpbar">
 
-<div class="hpfill"
-id="enemyhp"></div>
+<div
+class="hpfill"
+id="enemyhp">
+</div>
 
 </div>
 
@@ -85,7 +90,7 @@ id="enemyhp"></div>
 <div class="buttons">
 
 <button onclick="fight()">
-⚔ В БОЙ
+⚔ БОЙ
 </button>
 
 <button onclick="openChest()">
@@ -94,9 +99,35 @@ id="enemyhp"></div>
 
 </div>
 
-<div class="inventory">
+<div class="buttons">
 
-<h3>🎒 Инвентарь</h3>
+<button onclick="toggleInventory()">
+🎒 ИНВЕНТАРЬ
+</button>
+
+<button onclick="healPlayer()">
+❤️ ХИЛ
+</button>
+
+</div>
+
+<div id="inventoryWindow"
+class="inventory hidden">
+
+<div class="invTop">
+
+<h3>
+🎒 Инвентарь
+<span id="slots">
+0
+</span>/1000
+</h3>
+
+<button onclick="toggleInventory()">
+✖
+</button>
+
+</div>
 
 <div id="drops"></div>
 
@@ -105,4 +136,5 @@ id="enemyhp"></div>
 <script src="script.js"></script>
 
 </body>
+
 </html>
