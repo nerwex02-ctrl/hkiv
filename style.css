@@ -3,7 +3,7 @@ body{
 margin:0;
 padding:15px;
 
-background:#07070b;
+background:#05050a;
 
 font-family:Arial;
 
@@ -27,7 +27,7 @@ background:
 radial-gradient(
 circle at top,
 #3b0764,
-#07070b 60%
+#05050a 65%
 );
 
 z-index:-1;
@@ -36,11 +36,10 @@ z-index:-1;
 
 .top,
 .enemy,
-.inventory,
-.equipment{
+.page{
 
 background:
-rgba(20,20,30,0.95);
+rgba(20,20,30,0.96);
 
 padding:18px;
 
@@ -51,7 +50,7 @@ margin-bottom:18px;
 border:1px solid #7c3aed;
 
 box-shadow:
-0 0 20px rgba(124,58,237,0.4);
+0 0 25px rgba(124,58,237,0.4);
 
 }
 
@@ -67,8 +66,8 @@ align-items:center;
 
 .profile img{
 
-width:80px;
-height:80px;
+width:85px;
+height:85px;
 
 border-radius:50%;
 
@@ -79,50 +78,30 @@ box-shadow:
 
 }
 
-.currencies{
-
-display:flex;
-
-justify-content:space-around;
-
-margin-top:15px;
-
-background:#111;
-
-padding:12px;
-
-border-radius:18px;
-
-font-weight:bold;
-
-}
-
-.equipGrid{
+.topStats{
 
 display:grid;
 
 grid-template-columns:
 1fr 1fr;
 
-gap:12px;
+gap:10px;
 
 margin-top:15px;
 
 }
 
-.slot{
+.topStats div{
 
 background:#111;
 
-padding:15px;
+padding:12px;
 
-border-radius:18px;
-
-text-align:center;
+border-radius:15px;
 
 font-weight:bold;
 
-min-height:70px;
+text-align:center;
 
 }
 
@@ -136,7 +115,7 @@ animation:pulse 2s infinite;
 
 .hpbar{
 
-height:18px;
+height:20px;
 
 background:#222;
 
@@ -144,7 +123,7 @@ border-radius:20px;
 
 overflow:hidden;
 
-margin-top:10px;
+margin:15px 0;
 
 }
 
@@ -165,25 +144,17 @@ transition:0.3s;
 
 }
 
-.buttons{
-
-display:flex;
-
-gap:10px;
-
-margin-bottom:12px;
-
-}
-
 button{
 
-flex:1;
+width:100%;
 
 padding:18px;
 
 border:none;
 
 border-radius:18px;
+
+margin-top:10px;
 
 background:
 linear-gradient(
@@ -205,26 +176,33 @@ box-shadow:
 
 button:active{
 
-transform:scale(0.95);
+transform:scale(0.96);
 
 }
 
-.inventory{
+.menuButtons{
+
+display:flex;
+
+gap:10px;
+
+}
+
+.page{
 
 position:fixed;
 
+top:0;
 left:0;
-bottom:0;
 
 width:100%;
-
-height:75%;
+height:100%;
 
 overflow-y:auto;
 
-border-radius:25px 25px 0 0;
-
 z-index:999;
+
+border-radius:0;
 
 }
 
@@ -234,7 +212,7 @@ display:none;
 
 }
 
-.invTop{
+.pageTop{
 
 display:flex;
 
@@ -283,6 +261,35 @@ margin-top:10px;
 padding:10px;
 
 font-size:13px;
+
+margin:0;
+
+}
+
+.equipGrid{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:12px;
+
+margin-top:20px;
+
+}
+
+.equip{
+
+background:#111;
+
+padding:15px;
+
+border-radius:18px;
+
+text-align:center;
+
+font-weight:bold;
 
 }
 
