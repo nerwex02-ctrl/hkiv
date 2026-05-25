@@ -14,7 +14,7 @@ hp:100,
 maxHp:100,
 
 gold:0,
-gems:250,
+gems:500,
 
 attack:5,
 armor:0,
@@ -28,151 +28,96 @@ inventory:[]
 
 };
 
-let currentEnemy = null;
+let enemy = null;
 
 const enemies = [
 
-{
-name:"Слизень",
-hp:40,
-gold:20
-},
-
-{
-name:"Скелет",
-hp:70,
-gold:40
-},
-
-{
-name:"Орк",
-hp:120,
-gold:80
-},
-
-{
-name:"Демон",
-hp:200,
-gold:140
-},
-
-{
-name:"Дракон",
-hp:500,
-gold:500
-},
-
-{
-name:"Повелитель Бездны",
-hp:1200,
-gold:1500
-}
-
-];
-
-const itemTypes = [
-
-"weapon",
-"helmet",
-"chest",
-"ring"
-
-];
-
-const weapons = [
-
-"Меч",
-"Кинжал",
-"Топор",
-"Посох",
-"Лук"
-
-];
-
-const helmets = [
-
-"Шлем",
-"Корона",
-"Капюшон"
-
-];
-
-const chests = [
-
-"Броня",
-"Куртка",
-"Доспех"
-
-];
-
-const rings = [
-
-"Кольцо",
-"Амулет"
-
-];
-
-const prefixes = [
-
-"Теневой",
-"Ледяной",
-"Адский",
-"Божественный",
-"Кровавый",
-"Древний"
-
-];
-
-const suffixes = [
-
-"хаоса",
-"бездны",
-"смерти",
-"вечности",
-"бури"
+{name:"Слизень",hp:40,gold:20},
+{name:"Скелет",hp:80,gold:50},
+{name:"Орк",hp:140,gold:100},
+{name:"Демон",hp:250,gold:180},
+{name:"Дракон",hp:700,gold:600},
+{name:"Титан",hp:1500,gold:1500},
+{name:"Повелитель Бездны",hp:3000,gold:4000}
 
 ];
 
 const rarities = [
 
 {
-name:"common",
-chance:50,
+name:"COMMON",
 color:"#777",
+chance:50,
 multi:1
 },
 
 {
-name:"rare",
-chance:30,
+name:"RARE",
 color:"deepskyblue",
+chance:30,
 multi:2
 },
 
 {
-name:"epic",
-chance:15,
+name:"EPIC",
 color:"violet",
-multi:4
+chance:14,
+multi:5
 },
 
 {
-name:"legendary",
-chance:4,
+name:"LEGENDARY",
 color:"gold",
-multi:8
+chance:5,
+multi:10
 },
 
 {
-name:"mythic",
-chance:1,
+name:"MYTHIC",
 color:"red",
-multi:15
+chance:1,
+multi:25
 }
 
 ];
 
-function random(arr){
+const names = [
+
+"Меч",
+"Клинок",
+"Топор",
+"Посох",
+"Шлем",
+"Кольцо",
+"Доспех",
+"Амулет",
+"Лук",
+"Кинжал"
+
+];
+
+const prefixes = [
+
+"Адский",
+"Ледяной",
+"Теневой",
+"Кровавый",
+"Божественный",
+"Проклятый"
+
+];
+
+const suffixes = [
+
+"хаоса",
+"смерти",
+"вечности",
+"бездны",
+"бури"
+
+];
+
+function rand(arr){
 
 return arr[
 Math.floor(
@@ -182,9 +127,10 @@ Math.random()*arr.length
 
 }
 
-function randomRarity(){
+function rarity(){
 
-let roll = Math.random()*100;
+let roll =
+Math.random()*100;
 
 let total = 0;
 
@@ -206,35 +152,18 @@ return rarities[0];
 
 function generateItem(){
 
-let rarity = randomRarity();
+let rar = rarity();
 
-let type = random(itemTypes);
+let types = [
 
-let baseName = "";
+"weapon",
+"helmet",
+"chest",
+"ring"
 
-if(type=="weapon"){
+];
 
-baseName = random(weapons);
-
-}
-
-if(type=="helmet"){
-
-baseName = random(helmets);
-
-}
-
-if(type=="chest"){
-
-baseName = random(chests);
-
-}
-
-if(type=="ring"){
-
-baseName = random(rings);
-
-}
+let type = rand(types);
 
 return {
 
@@ -246,30 +175,30 @@ type:type,
 
 name:
 
-random(prefixes)+" "+
+rand(prefixes)+" "+
 
-baseName+" "+
+rand(names)+" "+
 
-random(suffixes),
+rand(suffixes),
 
-rarity:rarity.name,
+rarity:rar.name,
 
-color:rarity.color,
+color:rar.color,
 
 attack:
 Math.floor(
 Math.random()*10+1
-)*rarity.multi,
+)*rar.multi,
 
 armor:
 Math.floor(
 Math.random()*8
-)*rarity.multi,
+)*rar.multi,
 
 price:
 Math.floor(
-Math.random()*100
-)*rarity.multi
+Math.random()*100+50
+)*rar.multi
 
 };
 
@@ -277,14 +206,14 @@ Math.random()*100
 
 function spawnEnemy(){
 
-currentEnemy = {
+enemy = {
 
-...random(enemies)
+...rand(enemies)
 
 };
 
-currentEnemy.maxHp =
-currentEnemy.hp;
+enemy.maxHp =
+enemy.hp;
 
 renderEnemy();
 
@@ -295,20 +224,26 @@ function renderEnemy(){
 document
 .getElementById("enemy")
 .innerText =
-currentEnemy.name;
-
-let percent =
-
-(currentEnemy.hp/
-currentEnemy.maxHp)
-*100;
+enemy.name;
 
 document
 .getElementById(
 "enemyhp"
 )
 .style.width =
-percent+"%";
+
+(enemy.hp/
+enemy.maxHp)
+*100+"%";
+
+document
+.getElementById(
+"enemyhptext"
+)
+.innerText =
+
+enemy.hp+" / "+
+enemy.maxHp;
 
 }
 
@@ -317,25 +252,65 @@ function updateStats(){
 player.attack = 5;
 player.armor = 0;
 
-const equips = [
-
+[
 player.weapon,
 player.helmet,
 player.chest,
 player.ring
 
-];
-
-equips.forEach(item=>{
+].forEach(item=>{
 
 if(item){
 
-player.attack += item.attack;
-player.armor += item.armor;
+player.attack +=
+item.attack;
+
+player.armor +=
+item.armor;
 
 }
 
 });
+
+}
+
+function renderEquipment(){
+
+document
+.getElementById(
+"weaponSlot"
+)
+.innerText =
+player.weapon
+? player.weapon.name
+: "Пусто";
+
+document
+.getElementById(
+"helmetSlot"
+)
+.innerText =
+player.helmet
+? player.helmet.name
+: "Пусто";
+
+document
+.getElementById(
+"chestSlot"
+)
+.innerText =
+player.chest
+? player.chest.name
+: "Пусто";
+
+document
+.getElementById(
+"ringSlot"
+)
+.innerText =
+player.ring
+? player.ring.name
+: "Пусто";
 
 }
 
@@ -357,9 +332,24 @@ document
 player.hp;
 
 document
+.getElementById("maxhp")
+.innerText =
+player.maxHp;
+
+document
 .getElementById("gold")
 .innerText =
 player.gold;
+
+document
+.getElementById("gems")
+.innerText =
+player.gems;
+
+document
+.getElementById("attack")
+.innerText =
+player.attack;
 
 document
 .getElementById("armor")
@@ -400,16 +390,27 @@ div.innerHTML =
 `
 
 <div style="
+font-size:18px;
 font-weight:bold;
 color:${item.color};
-font-size:18px;
+">
+
+${item.rarity}
+
+</div>
+
+<div style="
+margin-top:6px;
+font-size:17px;
 ">
 
 ${item.name}
 
 </div>
 
-<div>
+<div style="
+margin-top:10px;
+">
 
 ⚔ ${item.attack}
 🛡 ${item.armor}
@@ -417,11 +418,7 @@ ${item.name}
 
 </div>
 
-<div style="
-margin-top:10px;
-display:flex;
-gap:8px;
-">
+<div class="itemButtons">
 
 <button
 class="smallBtn"
@@ -443,7 +440,7 @@ onclick="sellItem('${item.id}')">
 
 `;
 
-drops.appendChild(div);
+drops.prepend(div);
 
 });
 
@@ -458,18 +455,16 @@ i=>i.id == id
 
 if(!item) return;
 
-player[item.type] = item;
+player[item.type] =
+item;
 
 updateStats();
 
-saveGame();
+renderEquipment();
 
 renderUI();
 
-alert(
-"✅ Надето: "+
-item.name
-);
+saveGame();
 
 }
 
@@ -482,7 +477,8 @@ i=>i.id == id
 
 if(!item) return;
 
-player.gold += item.price;
+player.gold +=
+item.price;
 
 player.inventory =
 player.inventory.filter(
@@ -505,7 +501,7 @@ player.inventory.length
 ){
 
 alert(
-"🎒 Инвентарь заполнен"
+"🎒 FULL INVENTORY"
 );
 
 return;
@@ -529,16 +525,16 @@ Math.random()*
 player.attack
 )+1;
 
-currentEnemy.hp -= dmg;
+enemy.hp -= dmg;
 
-if(currentEnemy.hp <= 0){
+if(enemy.hp <= 0){
 
 player.gold +=
-currentEnemy.gold;
+enemy.gold;
 
 player.xp += 20;
 
-if(Math.random()<0.8){
+if(Math.random()<0.9){
 
 addItem(
 generateItem()
@@ -553,8 +549,11 @@ spawnEnemy();
 let enemyDmg =
 
 Math.floor(
-Math.random()*20
-)-player.armor;
+Math.random()*25
+)+5;
+
+enemyDmg -=
+player.armor;
 
 if(enemyDmg < 0){
 
@@ -564,9 +563,15 @@ enemyDmg = 0;
 
 player.hp -= enemyDmg;
 
+if(player.hp < 0){
+
+player.hp = 0;
+
+}
+
 if(player.hp <= 0){
 
-alert("💀 Ты умер");
+alert("💀 ТЫ УМЕР");
 
 player.hp =
 player.maxHp;
@@ -581,13 +586,13 @@ player.lvl++;
 
 player.xp = 0;
 
-player.maxHp += 20;
+player.maxHp += 25;
 
 player.hp =
 player.maxHp;
 
 alert(
-"🔥 Новый уровень: "+
+"🔥 LEVEL UP: "+
 player.lvl
 );
 
@@ -606,7 +611,7 @@ function openChest(){
 if(player.gems < 25){
 
 alert(
-"❌ Нужно 25 гемов"
+"❌ NEED 25 GEMS"
 );
 
 return;
@@ -615,9 +620,39 @@ return;
 
 player.gems -= 25;
 
+for(let i=0;i<3;i++){
+
 addItem(
 generateItem()
 );
+
+}
+
+renderUI();
+
+}
+
+function openMegaChest(){
+
+if(player.gems < 100){
+
+alert(
+"❌ NEED 100 GEMS"
+);
+
+return;
+
+}
+
+player.gems -= 100;
+
+for(let i=0;i<10;i++){
+
+addItem(
+generateItem()
+);
+
+}
 
 renderUI();
 
@@ -628,7 +663,7 @@ function healPlayer(){
 if(player.gold < 100){
 
 alert(
-"❌ Нужно 100 золота"
+"❌ NEED 100 GOLD"
 );
 
 return;
@@ -641,6 +676,32 @@ player.hp =
 player.maxHp;
 
 renderUI();
+
+}
+
+function sellAllCommon(){
+
+player.inventory =
+player.inventory.filter(item=>{
+
+if(item.rarity=="COMMON"){
+
+player.gold +=
+item.price;
+
+return false;
+
+}
+
+return true;
+
+});
+
+renderInventory();
+
+renderUI();
+
+saveGame();
 
 }
 
@@ -669,7 +730,8 @@ JSON.stringify(player)
 
 function loadGame(){
 
-let save = JSON.parse(
+let save =
+JSON.parse(
 
 localStorage.getItem(
 "lootRPG"
@@ -688,6 +750,8 @@ player = save;
 loadGame();
 
 updateStats();
+
+renderEquipment();
 
 renderInventory();
 
