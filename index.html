@@ -29,36 +29,62 @@ href="style.css">
 
 <div>
 
-<h2 id="name">Игрок</h2>
+<h1 id="name">
+Игрок
+</h1>
 
-<p>⚔ Уровень:
+<p>
+⭐ LVL:
 <span id="lvl">1</span>
 </p>
 
-<p>❤️ HP:
-<span id="hp">100</span>
-</p>
-
-<p>✨ XP:
+<p>
+✨ XP:
 <span id="xp">0</span>/100
 </p>
 
-<p>🛡 Броня:
-<span id="armor">0</span>
-</p>
-
 </div>
 
 </div>
 
-<div class="currencies">
+<div class="topStats">
 
 <div>
-💎 <span id="gems">250</span>
+❤️
+<span id="hp">
+100
+</span> /
+<span id="maxhp">
+100
+</span>
 </div>
 
 <div>
-🪙 <span id="gold">0</span>
+⚔
+<span id="attack">
+5
+</span>
+</div>
+
+<div>
+🛡
+<span id="armor">
+0
+</span>
+</div>
+
+<div>
+🪙
+<span id="gold">
+0
+</span>
+</div>
+
+<div>
+💎
+<span id="gems">
+500
+</span>
 </div>
 
 </div>
@@ -67,14 +93,9 @@ href="style.css">
 
 <div class="enemy">
 
-<div class="enemyName">
-
-👹
-<span id="enemy">
+<h2 id="enemyName">
 Слизень
-</span>
-
-</div>
+</h2>
 
 <div class="hpbar">
 
@@ -85,56 +106,190 @@ id="enemyhp">
 
 </div>
 
-</div>
-
-<div class="buttons">
+<p id="enemyhptext">
+100 / 100
+</p>
 
 <button onclick="fight()">
-⚔ БОЙ
-</button>
-
-<button onclick="openChest()">
-🎁 КЕЙС
+⚔ АТАКОВАТЬ
 </button>
 
 </div>
 
-<div class="buttons">
+<div class="menuButtons">
 
-<button onclick="toggleInventory()">
+<button onclick="openPage('inventoryPage')">
 🎒 ИНВЕНТАРЬ
 </button>
 
-<button onclick="healPlayer()">
-❤️ ХИЛ
+<button onclick="openPage('characterPage')">
+🧍 ПЕРСОНАЖ
 </button>
 
 </div>
 
-<div id="inventoryWindow"
-class="inventory hidden">
+<div class="menuButtons">
 
-<div class="invTop">
+<button onclick="openPage('shopPage')">
+🛒 МАГАЗИН
+</button>
 
-<h3>
-🎒 Инвентарь
-<span id="slots">
-0
-</span>/1000
-</h3>
+<button onclick="openPage('bossPage')">
+👹 БОССЫ
+</button>
 
-<button onclick="toggleInventory()">
+</div>
+
+<div id="inventoryPage"
+class="page hidden">
+
+<div class="pageTop">
+
+<h2>
+🎒 ИНВЕНТАРЬ
+</h2>
+
+<button onclick="closePages()">
 ✖
 </button>
 
 </div>
 
+<p>
+Слоты:
+<span id="slots">
+0
+</span>/1000
+</p>
+
 <div id="drops"></div>
+
+</div>
+
+<div id="characterPage"
+class="page hidden">
+
+<div class="pageTop">
+
+<h2>
+🧍 ПЕРСОНАЖ
+</h2>
+
+<button onclick="closePages()">
+✖
+</button>
+
+</div>
+
+<div class="equipGrid">
+
+<div class="equip">
+
+⚔ Оружие
+
+<div id="weaponSlot">
+Пусто
+</div>
+
+</div>
+
+<div class="equip">
+
+🪖 Шлем
+
+<div id="helmetSlot">
+Пусто
+</div>
+
+</div>
+
+<div class="equip">
+
+🛡 Броня
+
+<div id="chestSlot">
+Пусто
+</div>
+
+</div>
+
+<div class="equip">
+
+💍 Кольцо
+
+<div id="ringSlot">
+Пусто
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="shopPage"
+class="page hidden">
+
+<div class="pageTop">
+
+<h2>
+🛒 МАГАЗИН
+</h2>
+
+<button onclick="closePages()">
+✖
+</button>
+
+</div>
+
+<button onclick="openChest()">
+🎁 Кейс — 25 💎
+</button>
+
+<button onclick="openMegaChest()">
+👑 Mega Box — 100 💎
+</button>
+
+<button onclick="healPlayer()">
+❤️ Хил — 100 🪙
+</button>
+
+<button onclick="sellAllCommon()">
+💰 Продать common
+</button>
+
+</div>
+
+<div id="bossPage"
+class="page hidden">
+
+<div class="pageTop">
+
+<h2>
+👹 БОССЫ
+</h2>
+
+<button onclick="closePages()">
+✖
+</button>
+
+</div>
+
+<button onclick="spawnBoss('dragon')">
+🐉 Дракон
+</button>
+
+<button onclick="spawnBoss('titan')">
+🗿 Титан
+</button>
+
+<button onclick="spawnBoss('void')">
+🌌 Повелитель Бездны
+</button>
 
 </div>
 
 <script src="script.js"></script>
 
 </body>
-
 </html>
