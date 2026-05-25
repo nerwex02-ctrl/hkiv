@@ -11,6 +11,8 @@ tg.initDataUnsafe.user
 
 let lvl = 1;
 
+let xp = 0;
+
 let hp = 100;
 
 let gold = 0;
