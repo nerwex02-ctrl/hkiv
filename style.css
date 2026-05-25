@@ -167,3 +167,72 @@ border:2px solid #444;
 color:white;
 
 }
+.enemy{
+
+animation: pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{
+transform:scale(1);
+}
+
+50%{
+transform:scale(1.03);
+}
+
+100%{
+transform:scale(1);
+}
+
+}
+
+button:active{
+
+transform:scale(0.96);
+
+}
+
+.item{
+
+animation: drop 0.3s ease;
+
+}
+
+@keyframes drop{
+
+from{
+
+opacity:0;
+transform:translateY(-20px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+.legendary{
+
+box-shadow:0 0 20px gold;
+
+}
+
+.epic{
+
+box-shadow:0 0 15px violet;
+
+}
+
+.rare{
+
+box-shadow:0 0 10px deepskyblue;
+
+}
