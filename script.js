@@ -17,13 +17,17 @@ let hp = 100;
 
 let gold = 0;
 
+let enemyHp = 100;
+
 const enemies = [
 
 "Слизень",
 "Скелет",
 "Орк",
 "Демон",
-"Дракон"
+"Дракон",
+"Некромант",
+"Титан"
 
 ];
 
@@ -33,7 +37,9 @@ const prefixes = [
 "Проклятый",
 "Ледяной",
 "Огненный",
-"Древний"
+"Древний",
+"Кровавый",
+"Божественный"
 
 ];
 
@@ -43,6 +49,7 @@ const weapons = [
 "лук",
 "кинжал",
 "посох",
+"молот",
 "броня"
 
 ];
@@ -53,7 +60,8 @@ const suffixes = [
 "смерти",
 "тьмы",
 "вечности",
-"бездны"
+"бездны",
+"бури"
 
 ];
 
@@ -147,6 +155,8 @@ document
 .getElementById("drops")
 .prepend(div);
 
+saveGame();
+
 }
 
 function updateUI(){
@@ -164,9 +174,18 @@ document
 .innerText = gold;
 
 document
+.getElementById("xp")
+.innerText = xp;
+
+document
 .getElementById("enemy")
 .innerText =
 random(enemies);
+
+document
+.getElementById("enemyhp")
+.style.width =
+enemyHp+"%";
 
 }
 
@@ -177,17 +196,47 @@ Math.floor(
 Math.random()*20
 );
 
-hp -= dmg;
+enemyHp -= dmg;
 
 gold +=
 Math.floor(
-Math.random()*50
+Math.random()*70
 );
+
+xp += 15;
+
+if(enemyHp <= 0){
+
+enemyHp = 100;
+
+gold += 100;
+
+}
+
+if(xp >= 100){
+
+lvl++;
+
+xp = 0;
+
+alert(
+"🔥 Новый уровень: "+
+lvl
+);
+
+}
 
 let item =
 createItem();
 
 addItem(item);
+
+let enemyDmg =
+Math.floor(
+Math.random()*15
+);
+
+hp -= enemyDmg;
 
 if(hp <= 0){
 
@@ -195,9 +244,17 @@ alert("💀 Ты умер");
 
 hp = 100;
 
+gold = 0;
+
+xp = 0;
+
+lvl = 1;
+
 }
 
 updateUI();
+
+saveGame();
 
 }
 
@@ -209,5 +266,45 @@ createItem();
 addItem(item);
 
 }
+
+function saveGame(){
+
+localStorage.setItem(
+"lootRPG",
+
+JSON.stringify({
+
+lvl,
+xp,
+hp,
+gold
+
+})
+
+);
+
+}
+
+function loadGame(){
+
+let save =
+JSON.parse(
+localStorage.getItem(
+"lootRPG"
+)
+);
+
+if(save){
+
+lvl = save.lvl;
+xp = save.xp;
+hp = save.hp;
+gold = save.gold;
+
+}
+
+}
+
+loadGame();
 
 updateUI();
